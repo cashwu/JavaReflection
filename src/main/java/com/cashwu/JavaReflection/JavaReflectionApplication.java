@@ -29,7 +29,10 @@ public class JavaReflectionApplication {
         //									   ", type = " + columnField.getType().getSimpleName());
         //		}
 
-        EntityManager<Person> entityManager = EntityManager.of(Person.class);
+        BeanManager beanManager = BeanManager.getInstance();
+        EntityManager<Person> entityManager  = beanManager.getInstance(ManagedEntityManager.class);;
+
+//        EntityManager<Person> entityManager = EntityManager.of(Person.class);
 
         Person linda = new Person("Linda", 31);
         Person james = new Person("James", 24);

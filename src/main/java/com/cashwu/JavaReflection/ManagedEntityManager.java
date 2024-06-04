@@ -1,5 +1,6 @@
 package com.cashwu.JavaReflection;
 
+import com.cashwu.JavaReflection.annotation.Inject;
 import com.cashwu.JavaReflection.util.ColumnField;
 import com.cashwu.JavaReflection.util.Metamodel;
 
@@ -12,9 +13,12 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author cash.wu
  * @since 2024/06/04
  */
-public abstract class AbstractEntityManager<T> implements EntityManager<T> {
+public class ManagedEntityManager<T> implements EntityManager<T> {
 
     private AtomicLong idGenerator = new AtomicLong(0L);
+
+    @Inject
+    private Connection connection;
 
     @Override
     public void persist(T t) throws SQLException, IllegalAccessException {
@@ -90,13 +94,13 @@ public abstract class AbstractEntityManager<T> implements EntityManager<T> {
     }
 
     private PrepareStatementWrapper prepareStatementWith(String sql) throws SQLException {
-        Connection connection = buildConnection();
+//        Connection connection = buildConnection();
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         return new PrepareStatementWrapper(preparedStatement);
     }
 
-    public abstract Connection buildConnection() throws SQLException;
+//    public abstract Connection buildConnection() throws SQLException;
 
 
     private class PrepareStatementWrapper {
