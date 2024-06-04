@@ -2,9 +2,7 @@ package com.cashwu.JavaReflection.model;
 
 import com.cashwu.JavaReflection.annotation.Column;
 import com.cashwu.JavaReflection.annotation.PrimaryKey;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.springframework.context.annotation.Primary;
 
 /**
@@ -13,7 +11,6 @@ import org.springframework.context.annotation.Primary;
  */
 
 @Data
-@AllArgsConstructor
 @Builder
 public class Person {
 
@@ -23,10 +20,27 @@ public class Person {
         this.age = age;
     }
 
+    public Person() {
+    }
+
     @PrimaryKey(name="id")
     private long id;
     @Column(name="name")
     private String name;
     @Column(name="age")
     private int age;
+
+    public String getName() {
+        System.out.println("get name invoked");
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" + "id=" + id + ", name='" + name + '\'' + ", age=" + age + '}';
+    }
 }
